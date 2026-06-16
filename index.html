@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club d'aéromodélisme Romans</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="https://img.icons8.com/fluency/96/airplane-take-off.png" alt="Logo">
+        <h1>Club d'aéromodélisme Romans</h1>
+      </div>
+      <nav>
+        <a href="#accueil">Accueil</a>
+        <a href="#a-propos">À propos</a>
+        <a href="#activites">Activités</a>
+        <a href="#terrain">Terrain</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="accueil" class="hero">
+    <div class="hero-overlay">
+      <div class="container">
+        <h2>Club d'aéromodélisme Romans</h2>
+
+        <a href="#contact" class="btn">Nous rejoindre</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="a-propos" class="section">
+    <div class="container">
+      <h2 class="section-title">À propos du club</h2>
+      <div class="about-content">
+        <p>Le <strong>Club d'aéromodélisme Romans</strong> rassemble les passionnés de modèles réduits volants de Romans-sur-Isère et ses environs.</p>
+        <p>Labellisée <strong>École Française d'Aéromodélisme</strong>, notre structure accueille les jeunes et les moins jeunes pour découvrir et pratiquer le vol radiocommandé dans une ambiance conviviale.</p>
+        <p>Président : <strong>Laurent LACOURT</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="activites" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Nos activités</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">🛩️</div>
+          <h3>Aéronef motorisé</h3>
+          <p>Vol radiocommandé d'avions de voltige, warbirds — du débutant au confirmé. Initiation possible en double commande.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Motoplaneur électrique</h3>
+          <p>Initiation et perfectionnement au pilotage de motoplaneurs électriques.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🚁</div>
+          <h3>Hélicoptères</h3>
+          <p>Initiation au pilotage, voltige 3D.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="terrain" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Notre terrain</h2>
+      <div class="terrain-grid">
+        <div class="terrain-map">
+          <div id="map"></div>
+        </div>
+        <div class="terrain-info">
+          <h3>Romans St Paul</h3>
+          <p class="terrain-subtitle">Saint-Paul-lès-Romans (26750)</p>
+          <table>
+            <tr><td>Latitude</td><td>45° 3' 43" N</td></tr>
+            <tr><td>Longitude</td><td>5° 6' 10" E</td></tr>
+            <tr><td>Hauteur de vol</td><td>150 m max</td></tr>
+          </table>
+          <h3>Piste</h3>
+          <table>
+            <tr><td>Revêtement</td><td>Dur + herbe</td></tr>
+            <tr><td>Longueur</td><td>120 m</td></tr>
+            <tr><td>Largeur</td><td>12 m</td></tr>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="section-title">Nous contacter</h2>
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <p><strong>Adresse :</strong> 30 IMPASSE ROLAND GARROS — 26750 SAINT-PAUL-LÈS-ROMANS</p>
+          <p><strong>Président :</strong> Laurent LACOURT</p>
+          <p><strong>Facebook :</strong> <a href="https://www.facebook.com/groups/1110826557116174/" target="_blank">facebook.com/groups/1110826557116174</a></p>
+
+        </div>
+        <form class="contact-form">
+          <input type="text" placeholder="Votre nom" required>
+          <input type="email" placeholder="Votre email" required>
+          <textarea placeholder="Votre message" rows="5" required></textarea>
+          <button type="submit" class="btn">Envoyer</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Club d'aéromodélisme Romans — Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const loc = { lat: 45.06306, lng: 5.09392, label: "Local du club — 30 Impasse Roland Garros" };
+    const ter = { lat: 45.06297, lng: 5.10256, label: "Terrain de vol — Romans St Paul" };
+    const map = L.map('map').setView([45.0635, 5.096], 15);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 19,
+      attribution: '&copy; Esri'
+    }).addTo(map);
+    // overlay with labels
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 19
+    }).addTo(map);
+    L.marker([loc.lat, loc.lng]).addTo(map)
+      .bindPopup("<b>" + loc.label + "</b>");
+    L.marker([ter.lat, ter.lng]).addTo(map)
+      .bindPopup("<b>" + ter.label + "</b>")
+      .openPopup();
+  </script>
+</body>
+</html>
